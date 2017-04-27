@@ -1,4 +1,5 @@
 !#/bin/bash
+
 #Login to Azure via Az CLI 2
 az login --service-principal -u $AzureSPNUsername -p $AzureSPNPassword --tenant $AzureSPNTenant
 #Generate Secrets file for Terraform
@@ -10,6 +11,8 @@ ClientSecret=$(az account show --expanded-view --out tsv | cut -f3)
 
 #The line below would retrieve given secret from Azure KeyVault
 #KeyVaultBasedSecret=$(az keyvault secret show --name <SECRETNAME> --vault-name <VAULTNAME> --out tsv | cut -f7)
+mkdir -p $WORKSPACE/$BUILD_NUMBER
+cd $WORKSPACE/$BUILD_NUMBER
 
 echo "subscription_id = \"$SubscriptionID\"" > secret.tfvars
 echo "client_id = \"$ClientID\"" >> secret.tfvars
