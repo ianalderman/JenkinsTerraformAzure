@@ -2,6 +2,8 @@ variable "subscription_id" {}
 variable "client_id" {}
 variable "client_secret" {}
 variable "tenant_id" {}
+variable "environment_id" {}
+variable "region_id" {}
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
