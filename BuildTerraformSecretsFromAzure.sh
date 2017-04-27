@@ -1,3 +1,4 @@
+!#/bin/bash
 #Login to Azure via Az CLI 2
 az login --service-principal -u $AzureSPNUsername -p $AzureSPNPassword --tenant $AzureSPNTenant
 #Generate Secrets file for Terraform
