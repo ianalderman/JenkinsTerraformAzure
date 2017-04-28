@@ -7,7 +7,7 @@ TenantID=$(az account show --out tsv | cut -f6)
 SubscriptionID=$(az account show --out tsv | cut -f2)
 SPNName=$(az account show --expanded-view --out tsv | cut -f1)
 ClientID=$(az ad sp show --id $SPNName --out tsv | cut -f3)
-ClientSecret=$(az account show --expanded-view --out tsv | cut -f3)
+ClientSecret=$(az account show --expanded-view --out tsv | cut -f4)
 
 #The line below would retrieve given secret from Azure KeyVault
 #KeyVaultBasedSecret=$(az keyvault secret show --name <SECRETNAME> --vault-name <VAULTNAME> --out tsv | cut -f7)
