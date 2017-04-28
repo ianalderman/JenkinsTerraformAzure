@@ -2,8 +2,10 @@ variable "subscription_id" {}
 variable "client_id" {}
 variable "client_secret" {}
 variable "tenant_id" {}
+
 variable "environment_id" {}
 variable "region_id" {}
+variable "azure_region" {}
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
@@ -16,23 +18,23 @@ provider "azurerm" {
 # Create network resource group
 resource "azurerm_resource_group" "rgNetwork" {
   name     = "rg${var.environment_id}${var.region_id}Network"
-  location = "azure_region"
+  location = "${var.azure_region}"
 }
 
 # Create Web Servers resource group
 resource "azurerm_resource_group" "rgWebServers" {
   name     = "rg${var.environment_id}${var.region_id}WebServers"
-  location = "azure_region"
+  location = "${var.azure_region}"
 }
 
 # Create App Servers resource group
 resource "azurerm_resource_group" "rgAppServers" {
   name     = "rg${var.environment_id}${var.region_id}AppServers"
-  location = "azure_region"
+  location = "${var.azure_region}"
 }
 
 # Create DB Servers resource group
 resource "azurerm_resource_group" "rgDBServers" {
   name     = "rg${var.environment_id}${var.region_id}DBServers"
-  location = "azure_region"
+  location = "${var.azure_region}"
 }
