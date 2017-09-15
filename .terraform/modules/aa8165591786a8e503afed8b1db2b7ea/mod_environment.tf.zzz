@@ -1,0 +1,16 @@
+variable "subscription_id" {}
+variable "client_id" {}
+variable "client_secret" {}
+variable "tenant_id" {}
+
+variable "environment_id" {}
+variable "region_id" {}
+variable "azure_region" {}
+
+
+variable "environmentVnet" {
+    type = "map"
+    default = {
+        "dev" = "10.0.0.0/16"
+    }
+}
