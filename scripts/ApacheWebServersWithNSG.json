@@ -104,34 +104,6 @@
   },
   "resources": [
     {
-      "name": "[parameters('myVNETName')]",
-      "type": "Microsoft.Network/virtualNetworks",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2016-03-30",
-      "dependsOn": [],
-      "tags": {
-        "displayName": "[parameters('myVNETName')]"
-      },
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('myVNETPrefix')]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[variables('myVNETSubnet1Name')]",
-            "properties": {
-              "addressPrefix": "[parameters('myVNETSubnet1Prefix')]",
-              "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('myVNETSubnet1NSG'))]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
         "apiVersion": "2015-05-01-preview",
         "type": "Microsoft.Network/networkSecurityGroups",
         "name": "[variables('myVNETSubnet1NSG')]",
@@ -155,6 +127,36 @@
           ]
         }
       },
+    {
+      "name": "[parameters('myVNETName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-03-30",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('myVNETSubnet1NSG'))]"
+      ],
+      "tags": {
+        "displayName": "[parameters('myVNETName')]"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('myVNETPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('myVNETSubnet1Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('myVNETSubnet1Prefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('myVNETSubnet1NSG'))]"
+              }
+            }
+          }
+        ]
+      }
+    },
     {
       "name": "[variables('diagnosticStorageAccountName')]",
       "type": "Microsoft.Storage/storageAccounts",
