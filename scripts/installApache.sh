@@ -1,1 +1,11 @@
-sudo apt-get install apache2 -y && sudo bash -c 'hostname > /var/www/html/me.html'
+#!/bin/bash
+apt-get -y update
+
+# install Apache2
+apt-get -y install apache2 
+
+# write some HTML
+echo hostname > /var/www/html/demo.html
+
+# restart Apache
+apachectl restart
