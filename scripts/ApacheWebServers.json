@@ -66,13 +66,14 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 14,
-      "defaultValue": "GEN-UNIQUE-12",
+      "defaultValue": "iaasov",
       "metadata": {
         "description": "Globally unique DNS prefix for the Public IPs used to access the Virtual Machines"
       }
     }
   },
   "variables": {
+    "dnsPrefixForPublicIP": "[concat(parameters('dnsPrefixForPublicIP'), uniqueString(resourceGroup().id))]",
     "myVNETName": "myVNET",
     "myVNETPrefix": "10.0.0.0/16",
     "myVNETSubnet1Name": "Subnet1",
@@ -272,7 +273,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('dnsPrefixForPublicIP'), copyIndex(1))]"
+          "domainNameLabel": "[concat(variables('dnsPrefixForPublicIP'), copyIndex(1))]"
         }
       }
     }
