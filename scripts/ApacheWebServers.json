@@ -70,14 +70,23 @@
       "metadata": {
         "description": "Globally unique DNS prefix for the Public IPs used to access the Virtual Machines"
       }
-    }
+    },
+    "myVNETName": {
+        "type": "string",
+        "defaultValue": "vnIaaSov"
+      },
+      "myVNETPrefix": {
+        "type": "string",
+        "defaultValue": "10.9.0.0/16"
+      },
+      "myVNETSubnet1Prefix": {
+          "type": "string",
+          "defaultValue" : "10.9.0.0/24"
+      }
   },
   "variables": {
     "dnsPrefixForPublicIP": "[concat(parameters('dnsPrefixForPublicIP'), uniqueString(resourceGroup().id))]",
-    "myVNETName": "myVNET",
-    "myVNETPrefix": "10.0.0.0/16",
     "myVNETSubnet1Name": "Subnet1",
-    "myVNETSubnet1Prefix": "10.0.0.0/24",
     "diagnosticStorageAccountName": "[concat('diagst', uniqueString(resourceGroup().id))]",
     "operatingSystemValues": {
       "Ubuntu16": {
@@ -89,30 +98,30 @@
     },
     "availabilitySetPlatformFaultDomainCount": "2",
     "availabilitySetPlatformUpdateDomainCount": "5",
-    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('myVNETName'))]",
+    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('myVNETName'))]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('myVNETSubnet1Name'))]"
   },
   "resources": [
     {
-      "name": "[variables('myVNETName')]",
+      "name": "[parameters('myVNETName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[resourceGroup().location]",
       "apiVersion": "2016-03-30",
       "dependsOn": [],
       "tags": {
-        "displayName": "[variables('myVNETName')]"
+        "displayName": "[parameters('myVNETName')]"
       },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('myVNETPrefix')]"
+            "[parameters('myVNETPrefix')]"
           ]
         },
         "subnets": [
           {
             "name": "[variables('myVNETSubnet1Name')]",
             "properties": {
-              "addressPrefix": "[variables('myVNETSubnet1Prefix')]"
+              "addressPrefix": "[parameters('myVNETSubnet1Prefix')]"
             }
           }
         ]
@@ -255,7 +264,7 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]",
-        "[resourceId('Microsoft.Network/virtualNetworks/', variables('myVNETName'))]"
+        "[resourceId('Microsoft.Network/virtualNetworks/', parameters('myVNETName'))]"
       ]
     },
     {
