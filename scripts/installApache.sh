@@ -1,0 +1,1 @@
+sudo apt-get install apache2 -y && sudo bash -c 'hostname > /var/www/html/me.html'
