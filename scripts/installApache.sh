@@ -5,7 +5,7 @@ apt-get -y update
 apt-get -y install apache2 
 
 # write some HTML
-echo hostname > /var/www/html/demo.html
+hostname > /var/www/html/demo.html
 
 # restart Apache
 apachectl restart

@@ -217,9 +217,9 @@
           "autoUpgradeMinorVersion": true,
           "settings": {
             "fileUris": [
-                "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/apache2-on-ubuntu-vm/install_apache.sh"
+                "https://raw.githubusercontent.com/ianalderman/JenkinsTerraformAzure/master/scripts/installApache.sh"
             ],
-            "commandToExecute": "sh install_apache.sh"
+            "commandToExecute": "sh installApache.sh"
           }
         }
       },
